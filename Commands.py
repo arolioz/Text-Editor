@@ -5,8 +5,11 @@ from Menubar import createMenuBar
 
 mainWindow = Tk()
 noteBook = ttk.Notebook()
-
-
+tabs = {}
+config = {"Font": "Arial",
+          "Font size": 11,
+          "Color": "black",}
+            
 def save(currentFile):
     file = filedialog.asksaveasfile(initialdir=".\\Files", filetypes=[("Text files", "*.txt"),],defaultextension=".txt")
     if file is None:
@@ -18,14 +21,17 @@ def save(currentFile):
     file.close()
     
 def tab(entryText,noteBook):
-    frame = Frame(noteBook) #Tab structure
-    text = Text(frame,width=150,height=30)
-    text.pack()
-    saveButton = Button(frame,text="Save",command=lambda:save(text)).pack(side=TOP)
-    noteBook.add(frame,text=entryText)
-    noteBook.pack(expand=True,fill=BOTH)
-    newTabButton = Button(frame,text="New Tab",command=lambda:createTab()).pack(side=TOP)
-   
+    if entryText not in tabs.keys():
+        frame = Frame(noteBook) #Tab structure
+        text = Text(frame,width=150,height=30)
+        text.pack()
+        saveButton = Button(frame,text="Save",command=lambda:save(text), width=15,height=2,relief=SUNKEN).pack(side=LEFT)
+        noteBook.add(frame,text=entryText)
+        noteBook.pack(expand=True,fill=BOTH)
+        newTabButton = Button(frame,text="New Tab",command=lambda:createTab(),width=15,height=2,relief=SUNKEN).pack(side=LEFT)
+        tabs[entryText] = text
+        b = Button(frame,text="print",command=lambda:customize(),width=15,height=2,relief=SUNKEN).pack(side=LEFT)
+        customize()
 
 def createTab():
     window = Toplevel(mainWindow)
@@ -41,3 +47,6 @@ def start():
     createMenuBar(mainWindow)
     mainWindow.mainloop()
 
+def customize():
+    for key,value in tabs.items():
+        value.config(font=(config["Color"],config["Font size"]),fg=config["Color"])
