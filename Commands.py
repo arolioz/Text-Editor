@@ -2,13 +2,15 @@ from tkinter import *
 from tkinter import filedialog
 from tkinter import ttk
 from Menubar import createMenuBar
+from tkinter import colorchooser
 
 mainWindow = Tk()
 noteBook = ttk.Notebook()
 tabs = {}
 config = {"Font": "Arial",
           "Font size": 11,
-          "Color": "black",}
+          "Color": "black",
+          "Background color": "white"}
             
 def save(currentFile):
     file = filedialog.asksaveasfile(initialdir=".\\Files", filetypes=[("Text files", "*.txt"),],defaultextension=".txt")
@@ -31,7 +33,7 @@ def tab(entryText,noteBook):
         newTabButton = Button(frame,text="New Tab",command=lambda:createTab(),width=15,height=2,relief=SUNKEN).pack(side=LEFT)
         tabs[entryText] = text
         b = Button(frame,text="print",command=lambda:customize(),width=15,height=2,relief=SUNKEN).pack(side=LEFT)
-        customize()
+        setConfig()
 
 def createTab():
     window = Toplevel(mainWindow)
@@ -48,5 +50,20 @@ def start():
     mainWindow.mainloop()
 
 def customize():
+    cust_window = Toplevel(mainWindow)
+    cust_window.title("Customize")
+    cust_window.geometry("320x320")
+    frame = Frame(cust_window,bd=5)
+    frame.pack()
+    label = Label(cust_window,text="Sample")
+    label.pack(side=TOP)
+    def set():
+        textColor = colorchooser.askcolor()
+        config["Color"] = textColor[1]
+        label.config(fg=config["Color"])
+        setConfig()
+    colorButton = Button(cust_window,text="Text Color",command=set).pack()
+
+def setConfig():
     for key,value in tabs.items():
-        value.config(font=(config["Color"],config["Font size"]),fg=config["Color"])
+        value.config(font=(config["Color"],config["Font size"]),fg=config["Color"], bg=config["Background color"])
