@@ -3,6 +3,8 @@ from tkinter import filedialog
 from tkinter import ttk
 from Menubar import createMenuBar
 from tkinter import colorchooser
+from Fonts import setFont
+
 
 mainWindow = Tk()
 noteBook = ttk.Notebook()
@@ -25,14 +27,15 @@ def save(currentFile):
 def tab(entryText,noteBook):
     if entryText not in tabs.keys():
         frame = Frame(noteBook) #Tab structure
+        frame.pack()
         text = Text(frame,width=150,height=30)
         text.pack()
-        saveButton = Button(frame,text="Save",command=lambda:save(text), width=15,height=2,relief=SUNKEN).pack(side=LEFT)
+        saveButton = Button(frame,text="Save",command=lambda:save(text), width=15,height=2,relief=GROOVE,bd=4).pack(side=LEFT)
         noteBook.add(frame,text=entryText)
         noteBook.pack(expand=True,fill=BOTH)
-        newTabButton = Button(frame,text="New Tab",command=lambda:createTab(),width=15,height=2,relief=SUNKEN).pack(side=LEFT)
+        newTabButton = Button(frame,text="New Tab",command=lambda:createTab(),width=15,height=2,relief=GROOVE,bd=4).pack(side=LEFT)
         tabs[entryText] = text
-        b = Button(frame,text="print",command=lambda:customize(),width=15,height=2,relief=SUNKEN).pack(side=LEFT)
+        customizeButton = Button(frame,text="Customize",command=lambda:customize(),width=15,height=2,relief=GROOVE,bd=4).pack(side=LEFT)
         setConfig()
 
 def createTab():
@@ -52,7 +55,7 @@ def start():
 def customize():
     cust_window = Toplevel(mainWindow)
     cust_window.title("Customize")
-    cust_window.geometry("320x320")
+    cust_window.geometry("320x80")
     frame = Frame(cust_window,bd=2,relief=GROOVE,bg="lightyellow")
     frame.pack(fill=BOTH)
     label = Label(frame,text="Sample",width=15,height=2,bg="lightyellow")
@@ -68,7 +71,9 @@ def customize():
             label.config(bg=bgColor[1])
         elif x == 3:
             config["Font size"] = scale.get()
-            label.config(font=(config["Color"],config["Font size"]))
+            label.config(font=(config["Font"],config["Font size"]))
+        elif x == 4:
+            setFont(cust_window,config,label,tabs)
         setConfig()
     colorButton = Button(frame,text="Text Color",command=lambda:set(1)).pack(side=LEFT)
     bgButton = Button(frame,text="Bg Color",command=lambda:set(2)).pack(side=LEFT)
@@ -76,8 +81,11 @@ def customize():
     scale.set(((scale["from"] - scale["to"]) / 2) + scale["to"])
     scale.pack(side=LEFT)
     sizeButton = Button(frame,text="✅",command=lambda:set(3), padx=5,bg="lightgreen").pack(side=LEFT)
+    fontsButton = Button(frame,text="Fonts",command=lambda:set(4), padx=5,bg="lightyellow").pack(side=RIGHT)
+
+
 
 def setConfig():
     for key,value in tabs.items():
-        value.config(font=(config["Color"],config["Font size"]),fg=config["Color"], bg=config["Background color"])
+        value.config(font=(config["Font"],config["Font size"]),fg=config["Color"], bg=config["Background color"])
 start()
