@@ -53,17 +53,31 @@ def customize():
     cust_window = Toplevel(mainWindow)
     cust_window.title("Customize")
     cust_window.geometry("320x320")
-    frame = Frame(cust_window,bd=5)
-    frame.pack()
-    label = Label(cust_window,text="Sample")
+    frame = Frame(cust_window,bd=2,relief=GROOVE,bg="lightyellow")
+    frame.pack(fill=BOTH)
+    label = Label(frame,text="Sample",width=15,height=2,bg="lightyellow")
     label.pack(side=TOP)
-    def set():
-        textColor = colorchooser.askcolor()
-        config["Color"] = textColor[1]
-        label.config(fg=config["Color"])
+    def set(x):
+        if x == 1:
+            textColor = colorchooser.askcolor()
+            config["Color"] = textColor[1]
+            label.config(fg=config["Color"])
+        elif x == 2:
+            bgColor = colorchooser.askcolor()
+            config["Background color"] = bgColor[1]
+            label.config(bg=bgColor[1])
+        elif x == 3:
+            config["Font size"] = scale.get()
+            label.config(font=(config["Color"],config["Font size"]))
         setConfig()
-    colorButton = Button(cust_window,text="Text Color",command=set).pack()
+    colorButton = Button(frame,text="Text Color",command=lambda:set(1)).pack(side=LEFT)
+    bgButton = Button(frame,text="Bg Color",command=lambda:set(2)).pack(side=LEFT)
+    scale = Scale(frame,from_=0,to=64,length=100,orient=HORIZONTAL,font=("Arial",10,"bold"),troughcolor="grey",resolution=1,fg="black",showvalue=2)
+    scale.set(((scale["from"] - scale["to"]) / 2) + scale["to"])
+    scale.pack(side=LEFT)
+    sizeButton = Button(frame,text="✅",command=lambda:set(3), padx=5,bg="lightgreen").pack(side=LEFT)
 
 def setConfig():
     for key,value in tabs.items():
         value.config(font=(config["Color"],config["Font size"]),fg=config["Color"], bg=config["Background color"])
+start()
