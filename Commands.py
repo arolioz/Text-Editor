@@ -56,4 +56,3 @@ def start():
 def setConfig():
     for key,value in tabs.items():
         value.config(font=(config["Font"],config["Font size"]),fg=config["Color"], bg=config["Background color"])
-start()
