@@ -1,9 +1,8 @@
 from tkinter import *
 from tkinter import filedialog
 from tkinter import ttk
-from Menubar import createMenuBar
 from tkinter import colorchooser
-from Customization import customize
+from Customization.Customization import customize
 
 
 mainWindow = Tk()
@@ -49,7 +48,6 @@ def createTab():
 
 def start():
     tab("Tab",noteBook)
-    createMenuBar(mainWindow)
     mainWindow.mainloop()
 
 

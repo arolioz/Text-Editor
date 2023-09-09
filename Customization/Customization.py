@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter import colorchooser
-from Fonts import setFont
+from Customization.Fonts import setFont
 
 
 def customize(w,config,tabs):

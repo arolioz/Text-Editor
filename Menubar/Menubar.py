@@ -1,6 +1,5 @@
 from tkinter import *
-
-
+from Menubar.MenubarCommands import open
 
 def createMenuBar(window):
     menubar = Menu(window)
@@ -8,7 +7,7 @@ def createMenuBar(window):
 
     fileMenu = Menu(menubar,tearoff=0)
     menubar.add_cascade(label="File", menu=fileMenu)
-    fileMenu.add_command(label="Open",command=lambda:print("Opened"))
+    fileMenu.add_command(label="Open",command=lambda:open())
     fileMenu.add_separator()
     fileMenu.add_command(label="Exit", command=quit)
 
@@ -20,4 +19,4 @@ def createMenuBar(window):
     editMenu.add_separator()
     editMenu.add_command(label="Customize")
     
-    
+

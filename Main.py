@@ -1,9 +1,10 @@
 from tkinter import *
-from Commands import start
-
+from Structure.Commands import start,mainWindow
+from Menubar.Menubar import createMenuBar
 
 
 def Main():
+    createMenuBar(mainWindow)
     start()
     
 if __name__ == "__main__":
