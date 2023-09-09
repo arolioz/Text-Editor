@@ -6,6 +6,8 @@ from Customization.Customization import customize
 
 
 mainWindow = Tk()
+mainWindow.title("Text editor")
+mainWindow.iconphoto(True,PhotoImage(file="Assets\\MainIcon.png"))
 noteBook = ttk.Notebook()
 tabs = {}
 config = {"Font": "Arial",
@@ -39,7 +41,7 @@ def tab(entryText,noteBook):
 
 def createTab():
     window = Toplevel(mainWindow)
- 
+    window.title("Create tab")
     entry = Entry(window,font=("Arial",25))
     entry.grid(row=0,column=0)
 

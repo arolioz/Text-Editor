@@ -33,5 +33,3 @@ def setFont(w,config,label,tabs):
         entry.delete(0,END)
         entry.insert(0,listbox.selection_get())
         entry.config(font=(listbox.selection_get(),15))
-
-

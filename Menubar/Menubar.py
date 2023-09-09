@@ -18,5 +18,3 @@ def createMenuBar(window):
     editMenu.add_command(label="Paste",command=lambda:print("Paste"))
     editMenu.add_separator()
     editMenu.add_command(label="Customize")
-    
-
