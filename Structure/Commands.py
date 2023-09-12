@@ -5,10 +5,13 @@ from tkinter import colorchooser
 from Customization.Customization import customize
 
 
+#Main window 
 mainWindow = Tk()
 mainWindow.title("Text editor")
+#Logo
 mainWindow.iconphoto(True,PhotoImage(file="Assets\\MainIcon.png"))
 
+#Main notebook
 noteBook = ttk.Notebook()
 
 #Stores all existing text areas from the tabs 
@@ -20,6 +23,7 @@ config = {"Font": "Arial",
           "Background color": "white"}
             
 def save(currentFile):
+    #Save the file and insert the text within the text area
     file = filedialog.asksaveasfile(initialdir=".\\Files", filetypes=[("Text files", "*.txt"),],defaultextension=".txt")
     if file is None:
         return
@@ -38,9 +42,14 @@ def tab(entryText,noteBook):
         text = Text(frame,wrap=WORD)
         text.pack(fill=BOTH,expand=True)
 
+        #Save button
         saveButton = Button(frame,text="Save",command=lambda:save(text), width=15,height=2,relief=GROOVE,bd=4).pack(side=LEFT)
+
+        #Adds the frame to the tab
         noteBook.add(frame,text=entryText)
         noteBook.pack(expand=True,fill=BOTH)
+
+        #Button to create a new tab
         newTabButton = Button(frame,text="New Tab",command=lambda:createTab(),width=15,height=2,relief=GROOVE,bd=4).pack(side=LEFT)
         #Adds the created tab to the tabs dic 
         tabs[entryText] = text
@@ -54,11 +63,14 @@ def createTab():
     entry = Entry(window,font=("Arial",25))
     entry.grid(row=0,column=0)
 
+    #creates a new tab and adds it to the main window
     creatortButton = Button(window,text="Create",command=lambda:tab(entry.get(),noteBook))
     creatortButton.grid(row=0,column=1)
 
 def start():
+    #Default tab
     tab("Tab",noteBook)
+    
     mainWindow.mainloop()
 
 
