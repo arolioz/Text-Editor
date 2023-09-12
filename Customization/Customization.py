@@ -11,8 +11,8 @@ def customize(w,config,tabs):
     frame.pack(fill=BOTH)
     label = Label(frame,text="Sample",width=15,height=2,bg="lightyellow")
     label.pack(side=TOP)
-    config = config
-    tabs = tabs
+
+    #
     def set(x):
         if x == 1:
             textColor = colorchooser.askcolor()
@@ -30,12 +30,16 @@ def customize(w,config,tabs):
         setConfig(tabs,config)
     colorButton = Button(frame,text="Text Color",command=lambda:set(1)).pack(side=LEFT)
     bgButton = Button(frame,text="Bg Color",command=lambda:set(2)).pack(side=LEFT)
+
+    #Size of the font 
     scale = Scale(frame,from_=0,to=16,length=100,orient=HORIZONTAL,font=("Arial",10,"bold"),troughcolor="grey",resolution=1,fg="black",showvalue=2)
     scale.set(((scale["from"] - scale["to"]) / 2) + scale["to"])
     scale.pack(side=LEFT)
+
     sizeButton = Button(frame,text="✅",command=lambda:set(3), padx=5,bg="lightgreen").pack(side=LEFT)
     fontsButton = Button(frame,text="Fonts",command=lambda:set(4), padx=5,bg="lightyellow").pack(side=RIGHT)
 
 def setConfig(tabs,config):
+    #Apply customization
     for key,value in tabs.items():
         value.config(font=(config["Font"],config["Font size"]),fg=config["Color"], bg=config["Background color"])
