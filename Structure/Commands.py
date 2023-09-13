@@ -8,6 +8,17 @@ from Customization.Customization import customize
 #Main window 
 mainWindow = Tk()
 mainWindow.title("Text editor")
+
+window_width = 500
+window_heigth = 500
+screen_width = mainWindow.winfo_screenwidth()
+screen_height = mainWindow.winfo_screenheight()
+
+x = int((screen_width / 2) - (window_width / 2))
+y = int((screen_height / 2) - (window_heigth / 2))
+
+mainWindow.geometry("{}x{}+{}+{}".format(window_width,window_heigth, x, y))
+
 #Logo
 mainWindow.iconphoto(True,PhotoImage(file="Assets\\MainIcon.png"))
 
